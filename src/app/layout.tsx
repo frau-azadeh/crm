@@ -4,9 +4,6 @@ import "../styles/fonts.css";
 import { Main } from "next/document";
 import MainLayout from "./components/layout/MainLayout";
 
-
-
-
 export const metadata: Metadata = {
   title: "CRM",
   description: "CRM",
