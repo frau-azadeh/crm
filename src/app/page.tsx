@@ -24,10 +24,10 @@ export default function DashboardPage() {
     const fetchData = async () => {
       try {
         const customersRes = await axios.get<Customer[]>(
-          "https://67b1b1393fc4eef538ea6972.mockapi.io/customers"
+          "https://67b1b1393fc4eef538ea6972.mockapi.io/customers",
         );
         const purchasesRes = await axios.get<Purchase[]>(
-          "https://67b1b1393fc4eef538ea6972.mockapi.io/purchase"
+          "https://67b1b1393fc4eef538ea6972.mockapi.io/purchase",
         );
 
         const customers = customersRes.data;
@@ -38,11 +38,11 @@ export default function DashboardPage() {
 
         // 2. تعداد مشتریانی که خرید کرده‌اند
         const purchasingCustomerIds = new Set(
-          purchases.map((p) => p.customerId)
+          purchases.map((p) => p.customerId),
         );
 
         const purchasingCustomersCount = customers.filter((c) =>
-          purchasingCustomerIds.has(Number(c.id))
+          purchasingCustomerIds.has(Number(c.id)),
         ).length;
 
         setPurchasingCustomers(purchasingCustomersCount);
@@ -81,8 +81,7 @@ export default function DashboardPage() {
 
   if (loading)
     return <p className="text-center text-gray-600 mt-5">در حال بارگذاری...</p>;
-  if (error)
-    return <p className="text-center text-red-500">{error}</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
     <div className="p-6 space-y-6">
@@ -91,19 +90,25 @@ export default function DashboardPage() {
       {/* کارت‌های تعداد مشتریان */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-white shadow rounded-lg p-6 border border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-700">تعداد کل مشتریان</h2>
+          <h2 className="text-lg font-semibold text-gray-700">
+            تعداد کل مشتریان
+          </h2>
           <p className="text-3xl font-bold mt-2">{totalCustomers}</p>
         </div>
 
         <div className="bg-white shadow rounded-lg p-6 border border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-700">مشتریان خریدار</h2>
+          <h2 className="text-lg font-semibold text-gray-700">
+            مشتریان خریدار
+          </h2>
           <p className="text-3xl font-bold mt-2">{purchasingCustomers}</p>
         </div>
       </div>
 
       {/* 5 مشتری برتر */}
       <div className="bg-white shadow rounded-lg p-6 border border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-700 mb-4">۵ مشتری با بیشترین مبلغ خرید</h2>
+        <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          ۵ مشتری با بیشترین مبلغ خرید
+        </h2>
 
         {topCustomers.length === 0 ? (
           <p className="text-gray-600">هنوز خریدی انجام نشده است.</p>

@@ -20,7 +20,7 @@ export default function CustomerTable({ customers, onEdit, onDelete }: Props) {
 
   const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
   const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
-    null
+    null,
   );
 
   // Pagination State
@@ -116,42 +116,41 @@ export default function CustomerTable({ customers, onEdit, onDelete }: Props) {
 
       {/* Modal */}
       <Modal
-  isOpen={isPurchaseModalOpen}
-  onClose={() => setIsPurchaseModalOpen(false)}
-  title="خریدهای مشتری"
->
-  {loadingPurchases && <p>در حال دریافت...</p>}
+        isOpen={isPurchaseModalOpen}
+        onClose={() => setIsPurchaseModalOpen(false)}
+        title="خریدهای مشتری"
+      >
+        {loadingPurchases && <p>در حال دریافت...</p>}
 
-  {errorPurchases && (
-    <p className="text-red-600">خریدی انجام نشده</p>
-  )}
+        {errorPurchases && <p className="text-red-600">خریدی انجام نشده</p>}
 
-  {!loadingPurchases && !errorPurchases && selectedPurchases.length === 0 && (
-    <div className="bg-yellow-100 text-yellow-800 p-3 rounded">
-      هنوز خریدی برای این مشتری ثبت نشده است.
-    </div>
-  )}
+        {!loadingPurchases &&
+          !errorPurchases &&
+          selectedPurchases.length === 0 && (
+            <div className="bg-yellow-100 text-yellow-800 p-3 rounded">
+              هنوز خریدی برای این مشتری ثبت نشده است.
+            </div>
+          )}
 
-  {!loadingPurchases &&
-    !errorPurchases &&
-    selectedPurchases.length > 0 &&
-    selectedPurchases.map((p) => (
-      <div key={p.id} className="border p-2 my-2 rounded">
-        مبلغ: {p.amount.toLocaleString()} تومان - تاریخ: {p.date}
-      </div>
-    ))}
+        {!loadingPurchases &&
+          !errorPurchases &&
+          selectedPurchases.length > 0 &&
+          selectedPurchases.map((p) => (
+            <div key={p.id} className="border p-2 my-2 rounded">
+              مبلغ: {p.amount.toLocaleString()} تومان - تاریخ: {p.date}
+            </div>
+          ))}
 
-  {selectedCustomerId && (
-    <>
-      <h4 className="mt-4 font-bold">ثبت خرید جدید</h4>
-      <AddPurchaseForm
-        customerId={selectedCustomerId}
-        onSuccess={() => handleShowPurchases(selectedCustomerId)}
-      />
-    </>
-  )}
-</Modal>
-
+        {selectedCustomerId && (
+          <>
+            <h4 className="mt-4 font-bold">ثبت خرید جدید</h4>
+            <AddPurchaseForm
+              customerId={selectedCustomerId}
+              onSuccess={() => handleShowPurchases(selectedCustomerId)}
+            />
+          </>
+        )}
+      </Modal>
     </div>
   );
 }
