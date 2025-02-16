@@ -33,7 +33,7 @@ Utility-first styling with Tailwind CSS
 
 1. Clone the repository
 
-    git clone https://github.com/yourusername/my-crm-app.git
+    git clone https://github.com/frau-azadeh/crm.git
 
 2. Navigate to the project directory
 
