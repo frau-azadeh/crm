@@ -22,7 +22,7 @@ export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
     }
 
     const formattedDate = `${selectedDate.year}-${String(
-      selectedDate.month
+      selectedDate.month,
     ).padStart(2, "0")}-${String(selectedDate.day).padStart(2, "0")}`;
 
     try {
@@ -57,7 +57,7 @@ export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
           selectedDate
             ? `${selectedDate.year}-${String(selectedDate.month).padStart(
                 2,
-                "0"
+                "0",
               )}-${String(selectedDate.day).padStart(2, "0")}`
             : ""
         }

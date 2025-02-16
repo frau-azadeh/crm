@@ -31,7 +31,7 @@ export default function EditCustomerForm({
     mutationFn: async (data: CustomerFormData) => {
       return axios.put(
         `https://67b1b1393fc4eef538ea6972.mockapi.io/customers/${customerId}`,
-        data
+        data,
       );
     },
     onSuccess: () => {

@@ -10,7 +10,12 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
+export default function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+}: ModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -38,7 +43,9 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 text-right shadow-xl transition-all">
-                <Dialog.Title className="text-lg font-bold">{title}</Dialog.Title>
+                <Dialog.Title className="text-lg font-bold">
+                  {title}
+                </Dialog.Title>
                 <div className="mt-4">{children}</div>
                 <div className="mt-4">
                   <button

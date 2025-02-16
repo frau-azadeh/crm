@@ -4,5 +4,3 @@ export interface Customer {
   email: string;
   phone: string;
 }
-
-

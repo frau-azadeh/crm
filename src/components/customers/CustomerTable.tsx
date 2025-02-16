@@ -19,7 +19,9 @@ export default function CustomerTable({ customers, onEdit, onDelete }: Props) {
   const [errorPurchases, setErrorPurchases] = useState(false);
 
   const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
-  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(null);
+  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
+    null,
+  );
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,7 +103,9 @@ export default function CustomerTable({ customers, onEdit, onDelete }: Props) {
           <button
             key={index + 1}
             className={`mx-1 px-3 py-1 border rounded ${
-              currentPage === index + 1 ? "bg-primary text-white" : "bg-gray-200"
+              currentPage === index + 1
+                ? "bg-primary text-white"
+                : "bg-gray-200"
             }`}
             onClick={() => setCurrentPage(index + 1)}
           >

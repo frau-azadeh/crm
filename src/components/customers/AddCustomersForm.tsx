@@ -23,7 +23,7 @@ export default function AddCustomerForm({ onSuccess }: Props) {
     mutationFn: async (data: CustomerFormData) => {
       return axios.post(
         "https://67b1b1393fc4eef538ea6972.mockapi.io/customers",
-        data
+        data,
       );
     },
     onSuccess: () => {

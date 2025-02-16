@@ -20,7 +20,9 @@ export default function CustomersPage() {
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [customerToDelete, setCustomerToDelete] = useState<Customer | null>(null);
+  const [customerToDelete, setCustomerToDelete] = useState<Customer | null>(
+    null,
+  );
 
   const deleteMutation = useMutation({
     mutationFn: deleteCustomer,
@@ -103,7 +105,9 @@ export default function CustomersPage() {
             انصراف
           </button>
           <button
-            onClick={() => customerToDelete && deleteMutation.mutate(customerToDelete.id)}
+            onClick={() =>
+              customerToDelete && deleteMutation.mutate(customerToDelete.id)
+            }
             className="bg-red-600 text-white px-4 py-2 rounded"
             disabled={deleteMutation.isPending}
           >
