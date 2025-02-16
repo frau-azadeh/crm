@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Header from "./Header";
@@ -28,7 +28,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         )}
 
-        <main className="flex-1 bg-background p-6 overflow-auto">{children}</main>
+        <main className="flex-1 bg-background p-6 overflow-auto">
+          {children}
+        </main>
       </div>
     </div>
   );
