@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "../styles/fonts.css";
-import { Main } from "next/document";
 import MainLayout from "./components/layout/MainLayout";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import QueryProvider from "@/providers/QueryProvider";
+
+const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: "CRM",
@@ -17,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body>
-        <MainLayout>{children}</MainLayout>
+        <QueryProvider>
+          <MainLayout>{children}</MainLayout>
+        </QueryProvider>
       </body>
     </html>
   );
