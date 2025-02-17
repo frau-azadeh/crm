@@ -3,5 +3,6 @@ export interface Purchase {
   customerId: number;
   amount: number;
   date: string;
-  createdAt: string;
 }
+
+export type PurchaseInput = Omit<Purchase, "id">;
