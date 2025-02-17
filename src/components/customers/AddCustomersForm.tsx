@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { addCustomer } from "@/services/customerService";
 import toast from "react-hot-toast";
 
 interface CustomerFormData {
@@ -15,22 +15,18 @@ interface Props {
   onSuccess: () => void;
 }
 
-export default function AddCustomerForm({ onSuccess }: Props) {
+export default function AddCustomersForm({ onSuccess }: Props) {
   const { register, handleSubmit, reset } = useForm<CustomerFormData>();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (data: CustomerFormData) => {
-      return axios.post(
-        "https://67b1b1393fc4eef538ea6972.mockapi.io/customers",
-        data,
-      );
-    },
+    mutationFn: addCustomer,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customers"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboardData"] });
       reset();
       toast.success("مشتری با موفقیت اضافه شد!");
-      onSuccess(); // بستن مودال
+      onSuccess();
     },
     onError: () => {
       toast.error("ثبت مشتری با خطا مواجه شد.");
