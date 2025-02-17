@@ -11,3 +11,8 @@ export const getCustomers = async (): Promise<Customer[]> => {
 export const deleteCustomer = async (id: number) => {
   await axios.delete(`${API_URL}/${id}`);
 };
+
+export const addCustomer = async (customer: Omit<Customer, "id">) => {
+  const res = await axios.post<Customer>(API_URL, customer);
+  return res.data;
+};
