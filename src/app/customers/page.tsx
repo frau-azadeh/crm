@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Modal from "@/components/common/Modal";
 import AddCustomerForm from "@/components/customers/AddCustomersForm";
 import EditCustomerForm from "@/components/customers/EditCustomersForm";
+import CustomerPurchasesModal from "@/components/customers/CustomerPurchasesModal";
 import { useState } from "react";
 
 export default function CustomersPage() {
@@ -21,8 +22,13 @@ export default function CustomersPage() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [customerToDelete, setCustomerToDelete] = useState<Customer | null>(
-    null,
+    null
   );
+
+  // برای خریدها
+  const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
+  const [customerForPurchases, setCustomerForPurchases] =
+    useState<Customer | null>(null);
 
   const deleteMutation = useMutation({
     mutationFn: deleteCustomer,
@@ -116,6 +122,26 @@ export default function CustomersPage() {
         </div>
       </Modal>
 
+      {/* مودال خریدهای مشتری */}
+      {customerForPurchases && (
+        <Modal
+          isOpen={isPurchaseModalOpen}
+          onClose={() => {
+            setIsPurchaseModalOpen(false);
+            setCustomerForPurchases(null);
+          }}
+          title={`خریدهای ${customerForPurchases.name}`}
+        >
+          <CustomerPurchasesModal
+            customerId={customerForPurchases.id}
+            onClose={() => {
+              setIsPurchaseModalOpen(false);
+              setCustomerForPurchases(null);
+            }}
+          />
+        </Modal>
+      )}
+
       {/* جدول مشتریان */}
       <CustomerTable
         customers={customers || []}
@@ -126,6 +152,10 @@ export default function CustomersPage() {
         onDelete={(customer: Customer) => {
           setCustomerToDelete(customer);
           setIsDeleteModalOpen(true);
+        }}
+        onShowPurchases={(customer: Customer) => {
+          setCustomerForPurchases(customer);
+          setIsPurchaseModalOpen(true);
         }}
       />
     </div>
