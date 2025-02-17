@@ -1,5 +1,9 @@
 import { Customer } from "@/types/customer";
-import { PencilSquareIcon, TrashIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 interface Props {
@@ -20,7 +24,7 @@ export default function CustomerTable({
 
   const paginatedCustomers = customers.slice(
     (page - 1) * pageSize,
-    page * pageSize
+    page * pageSize,
   );
 
   const totalPages = Math.ceil(customers.length / pageSize);
@@ -59,17 +63,19 @@ export default function CustomerTable({
       </table>
 
       <div className="flex justify-center mt-4">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
-          <button
-            key={pageNumber}
-            className={`px-4 py-2 mx-1 rounded ${
-              page === pageNumber ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
-            onClick={() => setPage(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+          (pageNumber) => (
+            <button
+              key={pageNumber}
+              className={`px-4 py-2 mx-1 rounded ${
+                page === pageNumber ? "bg-blue-500 text-white" : "bg-gray-200"
+              }`}
+              onClick={() => setPage(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          ),
+        )}
       </div>
     </div>
   );

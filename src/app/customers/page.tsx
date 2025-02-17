@@ -22,7 +22,7 @@ export default function CustomersPage() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [customerToDelete, setCustomerToDelete] = useState<Customer | null>(
-    null
+    null,
   );
 
   // برای خریدها

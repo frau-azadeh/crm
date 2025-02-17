@@ -21,7 +21,9 @@ export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
     mutationFn: addPurchase,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["dashboardData"] });
-      queryClient.invalidateQueries({ queryKey: ["customerPurchases", customerId] });
+      queryClient.invalidateQueries({
+        queryKey: ["customerPurchases", customerId],
+      });
       toast.success("خرید با موفقیت ثبت شد");
       onSuccess();
     },
@@ -53,7 +55,11 @@ export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
     <form onSubmit={handleSubmit}>
       <p>آیدی مشتری: {customerId}</p>
       <input name="amount" type="number" placeholder="مبلغ" required />
-      <DatePicker selected={date} onChange={(d) => setDate(d)} dateFormat="yyyy-MM-dd" />
+      <DatePicker
+        selected={date}
+        onChange={(d) => setDate(d)}
+        dateFormat="yyyy-MM-dd"
+      />
       <button type="submit">ثبت خرید</button>
     </form>
   );

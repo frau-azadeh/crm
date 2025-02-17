@@ -26,7 +26,9 @@ export default function CustomerPurchasesModal({ customerId, onClose }: Props) {
   const mutation = useMutation({
     mutationFn: addPurchase,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customerPurchases", customerId] });
+      queryClient.invalidateQueries({
+        queryKey: ["customerPurchases", customerId],
+      });
       queryClient.invalidateQueries({ queryKey: ["dashboardData"] });
       setAmount("");
       setDate(new Date());
@@ -60,7 +62,8 @@ export default function CustomerPurchasesModal({ customerId, onClose }: Props) {
         <ul className="mb-4 space-y-2">
           {purchases.map((purchase) => (
             <li key={purchase.id} className="border-b pb-1">
-              مبلغ: {purchase.amount.toLocaleString()} تومان - تاریخ: {purchase.date}
+              مبلغ: {purchase.amount.toLocaleString()} تومان - تاریخ:{" "}
+              {purchase.date}
             </li>
           ))}
         </ul>
@@ -98,7 +101,12 @@ export default function CustomerPurchasesModal({ customerId, onClose }: Props) {
         </button>
       </form>
 
-      <button onClick={onClose} className="bg-red-500 text-white p-2 mt-3 w-full">بستن</button>
+      <button
+        onClick={onClose}
+        className="bg-red-500 text-white p-2 mt-3 w-full"
+      >
+        بستن
+      </button>
     </div>
   );
 }

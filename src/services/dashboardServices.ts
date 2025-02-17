@@ -3,8 +3,10 @@ import { Customer } from "@/types/customer";
 import { Purchase } from "@/types/purchase";
 import { TopCustomer } from "@/types/dashboard";
 
-const CUSTOMERS_API_URL = "https://67b1b1393fc4eef538ea6972.mockapi.io/customers";
-const PURCHASES_API_URL = "https://67b1b1393fc4eef538ea6972.mockapi.io/purchase";
+const CUSTOMERS_API_URL =
+  "https://67b1b1393fc4eef538ea6972.mockapi.io/customers";
+const PURCHASES_API_URL =
+  "https://67b1b1393fc4eef538ea6972.mockapi.io/purchase";
 
 interface DashboardData {
   totalCustomers: number;

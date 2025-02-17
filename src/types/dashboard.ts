@@ -1,7 +1,6 @@
 export interface TopCustomer {
-    id: number;
-    name: string;
-    email: string;
-    totalAmount: number;
-  }
-  
+  id: number;
+  name: string;
+  email: string;
+  totalAmount: number;
+}

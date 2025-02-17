@@ -22,7 +22,7 @@ export function DashboardContent({
         <StatisticsCard title="تعداد کل خریدها" value={totalPurchases} />
       </div>
       <TopCustomersList customers={topCustomers} />
-      <SalesChart/>
+      <SalesChart />
     </div>
   );
 }
