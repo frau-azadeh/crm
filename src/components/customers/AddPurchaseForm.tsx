@@ -1,14 +1,12 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { addPurchase } from "@/services/purchaseService";
+import { PurchaseInput } from "@/types/purchase";
 import toast from "react-hot-toast";
-
-interface FormData {
-  amount: number;
-  date: string;
-}
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
   customerId: number;
@@ -16,51 +14,47 @@ interface Props {
 }
 
 export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
-  const { register, handleSubmit, reset } = useForm<FormData>();
   const queryClient = useQueryClient();
+  const [date, setDate] = useState<Date | null>(new Date());
 
   const mutation = useMutation({
-    mutationFn: async (data: FormData) => {
-      await axios.post("https://67b1b1393fc4eef538ea6972.mockapi.io/purchase", {
-        ...data,
-        customerId: customerId.toString(),
-      });
-    },
+    mutationFn: addPurchase,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["purchases"] });
-      toast.success("خرید با موفقیت ثبت شد!");
-      reset();
+      queryClient.invalidateQueries({ queryKey: ["dashboardData"] });
+      queryClient.invalidateQueries({ queryKey: ["customerPurchases", customerId] });
+      toast.success("خرید با موفقیت ثبت شد");
       onSuccess();
     },
     onError: () => {
-      toast.error("مشکلی در ثبت خرید پیش آمد.");
+      toast.error("ثبت خرید با مشکل مواجه شد");
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const amountValue = Number(formData.get("amount"));
+
+    if (!amountValue || !date) {
+      toast.error("مبلغ و تاریخ را وارد کنید");
+      return;
+    }
+
+    const data: PurchaseInput = {
+      customerId,
+      amount: amountValue,
+      date: date.toISOString().split("T")[0],
+    };
+
     mutation.mutate(data);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <input
-        type="number"
-        {...register("amount", { required: true })}
-        placeholder="مبلغ"
-        className="border p-2 rounded w-full"
-      />
-      <input
-        type="date"
-        {...register("date", { required: true })}
-        className="border p-2 rounded w-full"
-      />
-      <button
-        type="submit"
-        className="bg-primary text-white p-2 rounded w-full"
-        disabled={mutation.isPending}
-      >
-        {mutation.isPending ? "در حال ثبت..." : "ثبت خرید"}
-      </button>
+    <form onSubmit={handleSubmit}>
+      <p>آیدی مشتری: {customerId}</p>
+      <input name="amount" type="number" placeholder="مبلغ" required />
+      <DatePicker selected={date} onChange={(d) => setDate(d)} dateFormat="yyyy-MM-dd" />
+      <button type="submit">ثبت خرید</button>
     </form>
   );
 }
