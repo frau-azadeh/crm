@@ -1,52 +1,47 @@
-"use client";
-
 import { useState } from "react";
 
-type PasswordChangeFormProps = {
-  onSubmit: (data: { newPassword: string; confirmPassword: string }) => void;
-};
+type PasswordFormData = {
+  newPassword: string;
+  confirmPassword: string;
+}
 
-export default function PasswordChangeForm({
-  onSubmit,
-}: PasswordChangeFormProps) {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+type PasswordFormDataProps = {
+  onSubmit: (data: PasswordFormData) => void;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
+export default function PasswordChangeForm ({onSubmit}:PasswordFormDataProps){
+  const[newPassword, setNewPassword] = useState("");
+  const[confirmPassword, setConfirmPassword] = useState("");
+
+  const handelPassword = (e: React.FormEvent) =>{
     e.preventDefault();
-    onSubmit({ newPassword, confirmPassword });
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    onSubmit({newPassword, confirmPassword});
+  }
+  return(
+    <form onSubmit={handelPassword} className="flex flex-col gap-2">
       <div>
         <label className="block mb-1">پسورد جدید</label>
         <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          className="border rounded p-2 w-full"
-          required
+         type="password"
+         required
+         className="bg-slate-100 border-slate-300 rounded p-2 w-full"
+         onChange={(e)=>setNewPassword(e.target.value)}
         />
       </div>
-
       <div>
         <label className="block mb-1">تایید پسورد</label>
-        <input
+        <input 
           type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="border rounded p-2 w-full"
           required
-        />
+          className="bg-slate-100 border-slate-300 rounded p-2 w-full"
+          onChange={(e) =>setConfirmPassword(e.target.value)}/>
       </div>
-
-      <button
+      <button 
         type="submit"
-        className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-500 hover:bg-blue-900 rounded p-2 text-white  w-full"
       >
-        تغییر پسورد
+        تایید
       </button>
     </form>
-  );
+  )
 }
