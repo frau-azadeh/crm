@@ -4,22 +4,23 @@ import { useState } from "react";
 import ModalPassword from "./components/ModalPassword";
 
 export default function Setting () {
-  const[isModalOpen, setModalOpen] = useState(false);
+  const[isModalOpen, setIsModalOpen] = useState(false);
   return(
-    <div className=" flex">
-        <div className="bg-white rounded-lg flex w-full max-w-md p-10">
-          <a href="#"
-            className="text-blue-600"
-            onClick={(e) =>{
-              e.preventDefault();
-              setModalOpen(true);
-            }}
-          >
-            تغییر پسورد 
-          </a>
-        </div>
-      <ModalPassword isOpen={isModalOpen} onClose={()=> setModalOpen(false)}>
-            <h2>تغییر پسورد</h2>
+    <div className="flex">
+      <div className="bg-white rounded-md w-full max-w-md p-6 shadow-lg">
+        <a
+          href="#"
+          onClick={(e)=>{
+            e.preventDefault();
+            setIsModalOpen(true);
+          }}
+          className="text-blue-500 transition font-bold text-lg hover:text-blue-900"
+        >
+          تغییر پسورد
+        </a>
+      </div>
+      <ModalPassword isOpen={isModalOpen} onClose={()=>setIsModalOpen(false)}>
+        <span className="text-gray-950 ">تغییر پسورد : </span>
       </ModalPassword>
     </div>
   )
