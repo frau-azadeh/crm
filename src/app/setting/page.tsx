@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Modal from './components/ModalPassword';
-import PasswordChangeButton from './components/PasswordChangeButton';
-import PasswordChangeForm from './components/PasswordChangeForm';
+import { useState } from "react";
+import Modal from "./components/ModalPassword";
+import PasswordChangeButton from "./components/PasswordChangeButton";
+import PasswordChangeForm from "./components/PasswordChangeForm";
 
 export default function SettingPage() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -16,7 +16,10 @@ export default function SettingPage() {
     setModalOpen(false);
   };
 
-  const handlePasswordChangeSubmit = async (data: { newPassword: string; confirmPassword: string }) => {
+  const handlePasswordChangeSubmit = async (data: {
+    newPassword: string;
+    confirmPassword: string;
+  }) => {
     setModalOpen(false);
   };
 

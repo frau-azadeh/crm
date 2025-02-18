@@ -1,14 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 type PasswordChangeFormProps = {
   onSubmit: (data: { newPassword: string; confirmPassword: string }) => void;
 };
 
-export default function PasswordChangeForm({ onSubmit }: PasswordChangeFormProps) {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+export default function PasswordChangeForm({
+  onSubmit,
+}: PasswordChangeFormProps) {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
