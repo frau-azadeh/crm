@@ -15,7 +15,7 @@ const Sidebar = ({ isMobile }: { isMobile?: boolean }) => {
           <Link href="/customers">مشتریان</Link>
         </li>
         <li className="cursor-pointer hover:text-accent">
-          <Link href="#">تنظیمات</Link>
+          <Link href="/setting">تنظیمات</Link>
         </li>
       </ul>
     </div>
