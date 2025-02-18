@@ -1,23 +1,28 @@
-import { ReactNode } from "react";
+'use client';
 
-type ModalPasswordProps = {
+import { ReactNode } from 'react';
+
+type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
 };
 
-export default function ModalPassword({
-  isOpen,
-  onClose,
-  children,
-}: ModalPasswordProps) {
+export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-black opacity-50 flex items-center justify-center">
-      <div className="bg-white p-6 max-w-md w-full rounded-lg shadow-lg relative">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white p-6 max-w-md w-full rounded-lg shadow-lg relative"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="top-2 right-4 text-gray-950 absolute font-bold text-xl"
+          className="absolute top-2 right-2 text-gray-600 hover:text-red-500 transition text-2xl font-bold"
         >
           ×
         </button>
