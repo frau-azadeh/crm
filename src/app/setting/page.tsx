@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import ModalPassword from "./components/ModalPassword";
 
 export default function Setting() {
