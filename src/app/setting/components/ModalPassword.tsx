@@ -1,33 +1,27 @@
-"use client";
-
-import { ReactNode } from "react";
+import { Children, ReactNode } from "react";
 
 type ModalProps = {
+  children: ReactNode;
   isOpen: boolean;
   onClose: () => void;
-  children: ReactNode;
-};
+}
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
-  if (!isOpen) return null;
-
-  return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+export default function Modal ({isOpen, children, onClose}: ModalProps) {
+  if(! isOpen) return null;
+  return(
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       onClick={onClose}
     >
-      <div
-        className="bg-white p-6 max-w-md w-full rounded-lg shadow-lg relative"
+      <div 
         onClick={(e) => e.stopPropagation()}
-      >
-        <button
+        className="bg-white relative rounded-lg w-full max-w-md p-6 ">
+        <button 
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-600 hover:text-red-500 transition text-2xl font-bold"
-        >
-          ×
+          className="absolute top-2 text-gray-600 hover:text-red-600 right-2 transition text-lg font-bold">
+        ×
         </button>
         {children}
       </div>
     </div>
-  );
+  )
 }
