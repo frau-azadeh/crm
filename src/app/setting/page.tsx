@@ -1,27 +1,35 @@
-"use client"
+'use client';
 
-import { useState } from "react";
-import ModalPassword from "./components/ModalPassword";
+import { useState } from 'react';
+import Modal from './components/ModalPassword';
+import PasswordChangeButton from './components/PasswordChangeButton';
+import PasswordChangeForm from './components/PasswordChangeForm';
 
-export default function Setting () {
-  const[isModalOpen, setIsModalOpen] = useState(false);
-  return(
-    <div className="flex">
-      <div className="bg-white rounded-md w-full max-w-md p-6 shadow-lg">
-        <a
-          href="#"
-          onClick={(e)=>{
-            e.preventDefault();
-            setIsModalOpen(true);
-          }}
-          className="text-blue-500 transition font-bold text-lg hover:text-blue-900"
-        >
-          تغییر پسورد
-        </a>
+export default function SettingPage() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handlePasswordChangeSubmit = async (data: { newPassword: string; confirmPassword: string }) => {
+    setModalOpen(false);
+  };
+
+  return (
+    <div className="flex ">
+      <div className="bg-white rounded-lg p-10 shadow-md">
+        <PasswordChangeButton onClick={handleOpenModal} />
       </div>
-      <ModalPassword isOpen={isModalOpen} onClose={()=>setIsModalOpen(false)}>
-        <span className="text-gray-950 ">تغییر پسورد : </span>
-      </ModalPassword>
+
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <h2 className="text-xl font-bold mb-4">تغییر پسورد</h2>
+        <PasswordChangeForm onSubmit={handlePasswordChangeSubmit} />
+      </Modal>
     </div>
-  )
+  );
 }
