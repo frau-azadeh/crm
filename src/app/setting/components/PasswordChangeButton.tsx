@@ -1,12 +1,13 @@
-type PasswordChangeButtonProps = {
+type PasswordChangeProps = {
     onClick: () => void;
 }
-export default function PasswordChangeButton ({onClick}: PasswordChangeButtonProps) {
+
+export default function PasswordChangeButton ({onClick}: PasswordChangeProps){
     return(
-        <button  
-            className="text-blue-500 font-bold text-lg hover:text-blue-950 transition"
+        <button 
             onClick={onClick}
-        >
+            className="text-blue-500 font-bold hover:text-blue-950 transition"
+            >
             تغییر پسورد
         </button>
     )
