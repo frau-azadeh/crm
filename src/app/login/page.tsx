@@ -30,7 +30,6 @@ export default function LoginPage() {
 
       const result: LoginResponse = await res.json();
 
-      // ذخیره‌سازی اطلاعات در localStorage
       localStorage.setItem("token", result.token);
       localStorage.setItem("role", result.role);
       localStorage.setItem("fullName", result.fullName);
