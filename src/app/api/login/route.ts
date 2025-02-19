@@ -1,4 +1,4 @@
-import { authApi } from "@/lib/axiosInstance"
+import { authApi } from "@/lib/axiosInstance";
 import { User } from "@/types/user";
 import { NextResponse } from "next/server";
 

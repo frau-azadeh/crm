@@ -1,5 +1,9 @@
 import { Customer } from "@/types/customer";
-import { PencilSquareIcon, TrashIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 interface Props {

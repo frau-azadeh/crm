@@ -12,8 +12,10 @@ import toast from "react-hot-toast";
 import { Customer } from "@/types/customer";
 
 export default function CustomersPage() {
-  const role = typeof window !== "undefined" ? localStorage.getItem("role") : null;
-  const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+  const role =
+    typeof window !== "undefined" ? localStorage.getItem("role") : null;
+  const userId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : null;
 
   const queryClient = useQueryClient();
 
@@ -38,7 +40,9 @@ export default function CustomersPage() {
   const [isPurchasesModalOpen, setPurchasesModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
+    null,
+  );
 
   const handleDeleteCustomer = (customer: Customer) => {
     setSelectedCustomer(customer);
@@ -104,7 +108,10 @@ export default function CustomersPage() {
       </Modal>
 
       {/* مودال نمایش خریدهای مشتری */}
-      <Modal isOpen={isPurchasesModalOpen} onClose={() => setPurchasesModalOpen(false)}>
+      <Modal
+        isOpen={isPurchasesModalOpen}
+        onClose={() => setPurchasesModalOpen(false)}
+      >
         {selectedCustomer && (
           <CustomerPurchasesModal
             customerId={selectedCustomer.id}
@@ -114,11 +121,15 @@ export default function CustomersPage() {
       </Modal>
 
       {/* مودال تایید حذف */}
-      <Modal isOpen={isConfirmModalOpen} onClose={() => setConfirmModalOpen(false)}>
+      <Modal
+        isOpen={isConfirmModalOpen}
+        onClose={() => setConfirmModalOpen(false)}
+      >
         <div className="text-center">
           <p className="mb-4">
             آیا از حذف مشتری{" "}
-            <span className="font-bold">{selectedCustomer?.name}</span> مطمئن هستید؟
+            <span className="font-bold">{selectedCustomer?.name}</span> مطمئن
+            هستید؟
           </p>
           <div className="flex justify-center gap-4">
             <button

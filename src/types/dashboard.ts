@@ -5,11 +5,9 @@ export interface DashboardData {
   topCustomers?: TopCustomer[]; // اینجا ? اضافه شده
 }
 
-
 export interface TopCustomer {
   id: string;
   name: string;
   email: string;
   totalAmount: number;
 }
-
