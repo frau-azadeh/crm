@@ -1,9 +1,5 @@
 import { Customer } from "@/types/customer";
-import {
-  PencilSquareIcon,
-  TrashIcon,
-  ShoppingBagIcon,
-} from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 interface Props {
@@ -19,18 +15,29 @@ export default function CustomerTable({
   onDelete,
   onShowPurchases,
 }: Props) {
-  const [page, setPage] = useState(1);
-  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-  const paginatedCustomers = customers.slice(
-    (page - 1) * pageSize,
-    page * pageSize,
-  );
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCustomers = customers.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(customers.length / pageSize);
+  const totalPages = Math.ceil(customers.length / itemsPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table className="w-full bg-white shadow rounded-lg overflow-hidden">
         <thead className="bg-gray-100">
           <tr>
@@ -41,7 +48,7 @@ export default function CustomerTable({
           </tr>
         </thead>
         <tbody>
-          {paginatedCustomers.map((customer) => (
+          {currentCustomers.map((customer) => (
             <tr key={customer.id} className="border-b">
               <td className="p-3">{customer.name}</td>
               <td className="p-3">{customer.email}</td>
@@ -62,20 +69,24 @@ export default function CustomerTable({
         </tbody>
       </table>
 
-      <div className="flex justify-center mt-4">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-          (pageNumber) => (
-            <button
-              key={pageNumber}
-              className={`px-4 py-2 mx-1 rounded ${
-                page === pageNumber ? "bg-blue-500 text-white" : "bg-gray-200"
-              }`}
-              onClick={() => setPage(pageNumber)}
-            >
-              {pageNumber}
-            </button>
-          ),
-        )}
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          صفحه قبل
+        </button>
+        <span>
+          صفحه {currentPage} از {totalPages}
+        </span>
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          صفحه بعد
+        </button>
       </div>
     </div>
   );
