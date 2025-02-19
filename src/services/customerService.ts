@@ -1,18 +1,27 @@
-import axios from "axios";
+import { customersApi } from "@/lib/axiosInstance";
 import { Customer } from "@/types/customer";
 
-const API_URL = "https://67b1b1393fc4eef538ea6972.mockapi.io/customers";
-
-export const getCustomers = async (): Promise<Customer[]> => {
-  const res = await axios.get<Customer[]>(API_URL);
-  return res.data;
+export const fetchCustomers = async (userId: string | null, role: string | null): Promise<Customer[]> => {
+  const url = role === "admin" ? "/customers" : `/customers?ownerId=${userId}`;
+  const response = await customersApi.get<Customer[]>(url);
+  return response.data;
 };
 
-export const deleteCustomer = async (id: number) => {
-  await axios.delete(`${API_URL}/${id}`);
+
+export const addCustomer = async (customerData: Omit<Customer, "id" | "ownerId">) => {
+  const userId = localStorage.getItem("userId"); // مالک مشتری را مشخص می‌کنیم
+  if (!userId) throw new Error("کاربر لاگین نکرده است");
+
+  const response = await customersApi.post<Customer>("/customers", {
+    ...customerData,
+    ownerId: userId,
+  });
+  return response.data;
 };
 
-export const addCustomer = async (customer: Omit<Customer, "id">) => {
-  const res = await axios.post<Customer>(API_URL, customer);
-  return res.data;
+
+export const deleteCustomer = async (customerId: string | number) => {
+  const response = await customersApi.delete(`/customers/${customerId}`);
+  return response.data;
 };
+
