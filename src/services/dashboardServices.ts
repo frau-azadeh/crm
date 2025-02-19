@@ -1,53 +1,32 @@
-import axios from "axios";
-import { Customer } from "@/types/customer";
+import { customersApi } from "@/lib/axiosInstance";
+import { DashboardData } from "@/types/dashboard";
 import { Purchase } from "@/types/purchase";
-import { TopCustomer } from "@/types/dashboard";
+import { Customer } from "@/types/customer";
 
-const CUSTOMERS_API_URL =
-  "https://67b1b1393fc4eef538ea6972.mockapi.io/customers";
-const PURCHASES_API_URL =
-  "https://67b1b1393fc4eef538ea6972.mockapi.io/purchase";
-
-interface DashboardData {
-  totalCustomers: number;
-  totalPurchases: number;
-  topCustomers: TopCustomer[];
-}
-
-export async function getDashboardData(): Promise<DashboardData> {
+export const getDashboardData = async (userId?: string): Promise<DashboardData> => {
   const [customersRes, purchasesRes] = await Promise.all([
-    axios.get<Customer[]>(CUSTOMERS_API_URL),
-    axios.get<Purchase[]>(PURCHASES_API_URL),
+    customersApi.get<Customer[]>(userId ? `/customers?ownerId=${userId}` : "/customers"),
+    customersApi.get<Purchase[]>("/purchase"),
   ]);
 
   const customers = customersRes.data;
-  const purchases = purchasesRes.data.map((p) => ({
-    ...p,
-    customerId: Number(p.customerId),
-    amount: Number(p.amount),
-  }));
+  const purchases = purchasesRes.data;
 
-  const totalCustomers = customers.length;
-  const totalPurchases = purchases.length;
+  const filteredPurchases = userId ? purchases.filter((p) => customers.some((c) => c.id === p.customerId.toString())) : purchases;
 
-  const customerSpendings: Record<number, number> = {};
-  purchases.forEach((purchase) => {
-    if (!customerSpendings[purchase.customerId]) {
-      customerSpendings[purchase.customerId] = 0;
-    }
-    customerSpendings[purchase.customerId] += purchase.amount;
+  const salesByDay: Record<string, number> = {};
+  filteredPurchases.forEach((purchase) => {
+    const date = purchase.date;
+    if (!salesByDay[date]) salesByDay[date] = 0;
+    salesByDay[date] += purchase.amount;
   });
 
-  const topCustomers: TopCustomer[] = customers
-    .filter((c) => customerSpendings[c.id])
-    .map((c) => ({
-      id: c.id,
-      name: c.name,
-      email: c.email,
-      totalAmount: customerSpendings[c.id],
-    }))
-    .sort((a, b) => b.totalAmount - a.totalAmount)
-    .slice(0, 5);
+  const purchasesChartData = Object.entries(salesByDay).map(([date, totalAmount]) => ({ date, totalAmount }));
+  purchasesChartData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  return { totalCustomers, totalPurchases, topCustomers };
-}
+  return {
+    totalCustomers: customers.length,
+    totalPurchases: filteredPurchases.length,
+    purchasesChartData,
+  };
+};
