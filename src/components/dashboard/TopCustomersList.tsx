@@ -1,9 +1,5 @@
-interface TopCustomer {
-  id: number;
-  name: string;
-  email: string;
-  totalAmount: number;
-}
+import { TopCustomer } from "@/types/dashboard";
+
 interface TopCustomersListProps {
   customers: TopCustomer[];
 }
