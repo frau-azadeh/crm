@@ -5,7 +5,6 @@ import Modal from "./components/ModalPassword";
 import PasswordChangeButton from "./components/PasswordChangeButton";
 import PasswordChangeForm from "./components/PasswordChangeForm";
 import { useState } from "react";
-import { VenusAndMarsIcon } from "lucide-react";
 
 export default function SettingPage() {
   const [isModalOpen, setModalOpen] = useState(false);
