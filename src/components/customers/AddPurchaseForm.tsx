@@ -9,13 +9,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
-  customerId: number;
+  customerId: string;
   onSuccess: () => void;
 }
 
 export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
   const queryClient = useQueryClient();
   const [date, setDate] = useState<Date | null>(new Date());
+  const [amount, setAmount] = useState<string>("");
 
   const mutation = useMutation({
     mutationFn: addPurchase,
@@ -25,26 +26,27 @@ export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
         queryKey: ["customerPurchases", customerId],
       });
       toast.success("خرید با موفقیت ثبت شد");
+      setAmount("");
+      setDate(new Date());
       onSuccess();
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error("ثبت خرید با مشکل مواجه شد");
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const amountValue = Number(formData.get("amount"));
 
-    if (!amountValue || !date) {
+    if (!amount || !date) {
       toast.error("مبلغ و تاریخ را وارد کنید");
       return;
     }
 
     const data: PurchaseInput = {
       customerId,
-      amount: amountValue,
+      amount: Number(amount),
       date: date.toISOString().split("T")[0],
     };
 
@@ -52,15 +54,29 @@ export default function AddPurchaseForm({ customerId, onSuccess }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-3">
       <p>آیدی مشتری: {customerId}</p>
-      <input name="amount" type="number" placeholder="مبلغ" required />
+      <input
+        type="number"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="مبلغ"
+        className="border p-2 w-full"
+        required
+      />
       <DatePicker
         selected={date}
         onChange={(d) => setDate(d)}
         dateFormat="yyyy-MM-dd"
+        className="border p-2 w-full"
       />
-      <button type="submit">ثبت خرید</button>
+      <button
+        type="submit"
+        disabled={mutation.isPending}
+        className="bg-blue-500 text-white p-2 w-full"
+      >
+        {mutation.isPending ? "در حال ثبت..." : "ثبت خرید"}
+      </button>
     </form>
   );
 }
