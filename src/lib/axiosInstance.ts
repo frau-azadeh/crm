@@ -1,10 +1,17 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
+// اینستنس برای لاگین
+export const authApi = axios.create({
   baseURL: "https://67b59f1807ba6e59083dafc9.mockapi.io/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export default axiosInstance;
+// اینستنس برای مشتریان
+export const customersApi = axios.create({
+  baseURL: "https://67b1b1393fc4eef538ea6972.mockapi.io/",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
