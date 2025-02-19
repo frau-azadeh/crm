@@ -12,13 +12,30 @@ export default function LoginPage() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log('Form Data:', data);
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    // مثلا اعتبارسنجی فیک برای تست
-    if (data.fullName === 'علی رضایی' && data.password === '123456') {
-      toast.success('ورود با موفقیت انجام شد!');
-    } else {
-      toast.error('نام یا رمز عبور اشتباه است!');
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.error || 'خطای ناشناخته!');
+      }
+
+      // ذخیره توکن و نقش کاربر در لوکال استوریج
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('role', result.role);
+      localStorage.setItem('fullName', result.fullName);
+
+      toast.success('ورود موفقیت‌آمیز بود!');
+
+      // ریدایرکت (مثلاً به داشبورد)
+      window.location.href = '/customers';
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
