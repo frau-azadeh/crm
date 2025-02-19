@@ -1,9 +1,10 @@
 export type User = {
-    id: string;
-    fullName: string;
-    password: string;
-    role: 'user' | 'admin';
-    token: string;
-    userId?: string;
-  };
-  
+  id: string;
+  fullName: string;
+  password: string;
+  role: "admin" | "user";
+  token: string;
+  userId?: string; 
+}
+
+
