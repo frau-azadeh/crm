@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { User } from '@/types/user';
+import axiosInstance from '@/lib/axiosInstance';
+import { User } from "@/types/user";
 
 export async function POST(request: Request) {
   const { fullName, password } = await request.json();
 
-  const res = await fetch('https://67b59f1807ba6e59083dafc9.mockapi.io/login');
-  const users: User[] = await res.json();
+  const { data: users } = await axiosInstance.get<User[]>('/login');
 
   const user = users.find((u) => u.fullName === fullName && u.password === password);
 
