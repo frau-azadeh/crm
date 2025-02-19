@@ -1,163 +1,141 @@
 "use client";
 
-import { useCustomers } from "@/hooks/useCustomers";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchCustomers, deleteCustomer } from "@/services/customerService";
+import { useState } from "react";
 import CustomerTable from "@/components/customers/CustomerTable";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCustomer } from "@/services/customerService";
-import { Customer } from "@/types/customer";
-import toast from "react-hot-toast";
-import Modal from "@/components/common/Modal";
-import AddCustomerForm from "@/components/customers/AddCustomersForm";
+import AddCustomersForm from "@/components/customers/AddCustomersForm";
 import EditCustomerForm from "@/components/customers/EditCustomersForm";
 import CustomerPurchasesModal from "@/components/customers/CustomerPurchasesModal";
-import { useState } from "react";
+import Modal from "@/components/customers/ModalCustomer";
+import toast from "react-hot-toast";
+import { Customer } from "@/types/customer";
 
 export default function CustomersPage() {
-  const { data: customers, isLoading, error } = useCustomers();
+  const role = typeof window !== "undefined" ? localStorage.getItem("role") : null;
+  const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+
   const queryClient = useQueryClient();
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
-
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [customerToDelete, setCustomerToDelete] = useState<Customer | null>(
-    null,
-  );
-
-  // برای خریدها
-  const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
-  const [customerForPurchases, setCustomerForPurchases] =
-    useState<Customer | null>(null);
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteCustomer,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-      toast.success("مشتری با موفقیت حذف شد!");
-      setIsDeleteModalOpen(false);
-      setCustomerToDelete(null);
-    },
-    onError: () => toast.error("خطا در حذف مشتری"),
+  const { data: customers = [], isLoading } = useQuery({
+    queryKey: ["customers", userId, role],
+    queryFn: () => fetchCustomers(userId, role),
+    enabled: !!userId && !!role,
   });
 
-  if (isLoading) return <p>در حال دریافت...</p>;
-  if (error) return <p>خطا در دریافت داده</p>;
+  const mutationDelete = useMutation({
+    mutationFn: deleteCustomer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers", userId, role] });
+      toast.success("مشتری با موفقیت حذف شد!");
+    },
+    onError: () => {
+      toast.error("حذف مشتری با خطا مواجه شد.");
+    },
+  });
+
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isPurchasesModalOpen, setPurchasesModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+
+  const handleDeleteCustomer = (customer: Customer) => {
+    setSelectedCustomer(customer);
+    setConfirmModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (selectedCustomer) {
+      mutationDelete.mutate(selectedCustomer.id);
+    }
+    setConfirmModalOpen(false);
+    setSelectedCustomer(null);
+  };
+
+  if (isLoading) return <p>در حال بارگذاری...</p>;
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow">
-      {/* دکمه افزودن */}
+    <div>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">لیست مشتریان</h1>
         <button
-          className="bg-primary text-white px-4 py-2 rounded"
-          onClick={() => setIsAddModalOpen(true)}
+          onClick={() => setAddModalOpen(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
-          افزودن مشتری جدید
+          اضافه کردن مشتری
         </button>
       </div>
 
-      {/* مودال افزودن مشتری */}
-      <Modal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        title="افزودن مشتری"
-      >
-        <AddCustomerForm
-          onSuccess={() => {
-            setIsAddModalOpen(false);
-          }}
-        />
+      <CustomerTable
+        customers={customers}
+        onEdit={(customer) => {
+          setSelectedCustomer(customer);
+          setEditModalOpen(true);
+        }}
+        onDelete={handleDeleteCustomer}
+        onShowPurchases={(customer) => {
+          setSelectedCustomer(customer);
+          setPurchasesModalOpen(true);
+        }}
+      />
+
+      {/* مودال اضافه کردن مشتری */}
+      <Modal isOpen={isAddModalOpen} onClose={() => setAddModalOpen(false)}>
+        <AddCustomersForm onSuccess={() => setAddModalOpen(false)} />
       </Modal>
 
-      {/* مودال ویرایش */}
-      {editingCustomer && (
-        <Modal
-          isOpen={isEditModalOpen}
-          onClose={() => {
-            setIsEditModalOpen(false);
-            setEditingCustomer(null);
-          }}
-          title="ویرایش مشتری"
-        >
+      {/* مودال ویرایش مشتری */}
+      <Modal isOpen={isEditModalOpen} onClose={() => setEditModalOpen(false)}>
+        {selectedCustomer && (
           <EditCustomerForm
-            customerId={editingCustomer.id.toString()}
+            customerId={selectedCustomer.id}
             initialData={{
-              name: editingCustomer.name,
-              email: editingCustomer.email,
-              phone: editingCustomer.phone,
+              name: selectedCustomer.name,
+              email: selectedCustomer.email,
+              phone: selectedCustomer.phone,
             }}
             onSuccess={() => {
-              setIsEditModalOpen(false);
-              setEditingCustomer(null);
+              setEditModalOpen(false);
               toast.success("ویرایش مشتری با موفقیت انجام شد!");
             }}
           />
-        </Modal>
-      )}
-
-      {/* مودال تأیید حذف */}
-      <Modal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        title="حذف مشتری"
-      >
-        <p>آیا از حذف این مشتری مطمئن هستید؟</p>
-        <div className="flex justify-end gap-3 mt-4">
-          <button
-            onClick={() => setIsDeleteModalOpen(false)}
-            className="bg-gray-500 text-white px-4 py-2 rounded"
-          >
-            انصراف
-          </button>
-          <button
-            onClick={() =>
-              customerToDelete && deleteMutation.mutate(customerToDelete.id)
-            }
-            className="bg-red-600 text-white px-4 py-2 rounded"
-            disabled={deleteMutation.isPending}
-          >
-            {deleteMutation.isPending ? "در حال حذف..." : "تایید حذف"}
-          </button>
-        </div>
+        )}
       </Modal>
 
-      {/* مودال خریدهای مشتری */}
-      {customerForPurchases && (
-        <Modal
-          isOpen={isPurchaseModalOpen}
-          onClose={() => {
-            setIsPurchaseModalOpen(false);
-            setCustomerForPurchases(null);
-          }}
-          title={`خریدهای ${customerForPurchases.name}`}
-        >
+      {/* مودال نمایش خریدهای مشتری */}
+      <Modal isOpen={isPurchasesModalOpen} onClose={() => setPurchasesModalOpen(false)}>
+        {selectedCustomer && (
           <CustomerPurchasesModal
-            customerId={customerForPurchases.id}
-            onClose={() => {
-              setIsPurchaseModalOpen(false);
-              setCustomerForPurchases(null);
-            }}
+            customerId={selectedCustomer.id}
+            onClose={() => setPurchasesModalOpen(false)}
           />
-        </Modal>
-      )}
+        )}
+      </Modal>
 
-      {/* جدول مشتریان */}
-      <CustomerTable
-        customers={customers || []}
-        onEdit={(customer: Customer) => {
-          setEditingCustomer(customer);
-          setIsEditModalOpen(true);
-        }}
-        onDelete={(customer: Customer) => {
-          setCustomerToDelete(customer);
-          setIsDeleteModalOpen(true);
-        }}
-        onShowPurchases={(customer: Customer) => {
-          setCustomerForPurchases(customer);
-          setIsPurchaseModalOpen(true);
-        }}
-      />
+      {/* مودال تایید حذف */}
+      <Modal isOpen={isConfirmModalOpen} onClose={() => setConfirmModalOpen(false)}>
+        <div className="text-center">
+          <p className="mb-4">
+            آیا از حذف مشتری{" "}
+            <span className="font-bold">{selectedCustomer?.name}</span> مطمئن هستید؟
+          </p>
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={confirmDelete}
+              className="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              بله، حذف شود
+            </button>
+            <button
+              onClick={() => setConfirmModalOpen(false)}
+              className="bg-gray-300 px-4 py-2 rounded"
+            >
+              انصراف
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
