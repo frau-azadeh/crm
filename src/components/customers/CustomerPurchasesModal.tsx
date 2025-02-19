@@ -2,23 +2,23 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCustomerPurchases, addPurchase } from "@/services/purchaseService";
-import { PurchaseInput } from "@/types/purchase";
+import { PurchaseInput, Purchase } from "@/types/purchase";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 
 interface Props {
-  customerId: number;
+  customerId: string;
   onClose: () => void;
 }
 
 export default function CustomerPurchasesModal({ customerId, onClose }: Props) {
   const queryClient = useQueryClient();
   const [date, setDate] = useState<Date | null>(new Date());
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState<string>("");
 
-  const { data: purchases, isLoading } = useQuery({
+  const { data: purchases, isLoading } = useQuery<Purchase[]>({
     queryKey: ["customerPurchases", customerId],
     queryFn: () => getCustomerPurchases(customerId),
   });
@@ -33,15 +33,21 @@ export default function CustomerPurchasesModal({ customerId, onClose }: Props) {
       setAmount("");
       setDate(new Date());
       toast.success("خرید جدید با موفقیت ثبت شد");
+      onClose(); // بستن مودال بعد از موفقیت
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error("ثبت خرید با مشکل مواجه شد");
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!date || !amount) return toast.error("لطفاً مبلغ و تاریخ را وارد کنید");
+
+    if (!date || !amount) {
+      toast.error("لطفاً مبلغ و تاریخ را وارد کنید");
+      return;
+    }
 
     const data: PurchaseInput = {
       customerId,
