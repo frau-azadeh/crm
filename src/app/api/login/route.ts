@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     const {fullName, password} = await request.json();
-    const {data: users} = await axiosInstance.get<User[]>('');
+    const {data: users} = await axiosInstance.get<User[]>('/login');
 
     const user = users.find((u)=> u.fullName === fullName && u.password === password);
     if(!user){
