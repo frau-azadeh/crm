@@ -33,7 +33,7 @@ export default function LoginPage() {
       toast.success('ورود موفقیت‌آمیز بود!');
 
       // ریدایرکت (مثلاً به داشبورد)
-      window.location.href = '/customers';
+      window.location.href = '/';
     } catch (error: any) {
       toast.error(error.message);
     }
