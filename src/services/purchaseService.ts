@@ -1,24 +1,15 @@
-import axios from "axios";
-import { Purchase, PurchaseInput } from "@/types/purchase";
+import { customersApi } from "@/lib/axiosInstance";
+import { PurchaseInput, Purchase } from "@/types/purchase";
 
-const API_URL = "https://67b1b1393fc4eef538ea6972.mockapi.io/purchase";
-
-export const addPurchase = async (
-  purchase: PurchaseInput,
-): Promise<Purchase> => {
-  const res = await axios.post<Purchase>(API_URL, purchase);
-  return res.data;
+export const getCustomerPurchases = async (customerId: string): Promise<Purchase[]> => {
+  const response = await customersApi.get<Purchase[]>(`/purchase`);
+  return response.data.filter((purchase) => purchase.customerId === customerId);
 };
 
-export const getCustomerPurchases = async (
-  customerId: number,
-): Promise<Purchase[]> => {
-  const res = await axios.get<Purchase[]>(
-    `${API_URL}?customerId=${customerId}`,
-  );
-  return res.data.map((p) => ({
-    ...p,
-    customerId: Number(p.customerId),
-    amount: Number(p.amount),
-  }));
+
+export const addPurchase = async (purchaseData: PurchaseInput) => {
+  const response = await customersApi.post<Purchase>(`/purchase`, purchaseData);
+  return response.data;
 };
+
+
