@@ -4,7 +4,5 @@ export type User = {
   password: string;
   role: "admin" | "user";
   token: string;
-  userId?: string; 
-}
-
-
+  userId?: string;
+};

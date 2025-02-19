@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import Input from './Input';
-import Button from './Button';
+import { useForm } from "react-hook-form";
+import Input from "./Input";
+import Button from "./Button";
 
 type LoginFormValues = {
   fullName: string;
@@ -25,12 +25,12 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
 
       <Input
         label="نام و نام خانوادگی"
-        {...register('fullName', { required: true })}
+        {...register("fullName", { required: true })}
       />
       <Input
         label="رمز عبور"
         type="password"
-        {...register('password', { required: true })}
+        {...register("password", { required: true })}
       />
 
       <Button type="submit">ورود</Button>
