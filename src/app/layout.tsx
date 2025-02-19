@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "../styles/fonts.css";
-import MainLayout from "@/components/layout/MainLayout";
-import QueryProvider from "@/providers/QueryProvider";
-import { Toaster } from "react-hot-toast";
+import AppLayout from "@/components/layout/AppLayout";
 
 export const metadata: Metadata = {
   title: "CRM",
@@ -18,10 +16,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body>
-        <QueryProvider>
-          <MainLayout>{children}</MainLayout>
-          <Toaster position="top-center" />
-        </QueryProvider>
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );
