@@ -30,10 +30,13 @@ export default function LoginPage() {
 
       const result: LoginResponse = await res.json();
 
+      // ذخیره‌سازی اطلاعات در localStorage
       localStorage.setItem("token", result.token);
       localStorage.setItem("role", result.role);
       localStorage.setItem("fullName", result.fullName);
       localStorage.setItem("userId", result.userId);
+
+      console.log("userId در پاسخ API:", result.userId);
 
       toast.success("ورود موفقیت‌آمیز بود!");
       window.location.href = "/";
