@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "hsl(var(--primary))",
+        primary: "#C7D2FE",
         secondary: "hsl(var(--secondary))",
       },
     },
