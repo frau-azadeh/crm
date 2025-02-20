@@ -5,7 +5,7 @@ import Modal from "./components/ModalPassword";
 import PasswordChangeButton from "./components/PasswordChangeButton";
 import PasswordChangeForm from "./components/PasswordChangeForm";
 import { useState } from "react";
-import axiosInstance from "@/lib/axiosInstance";
+import {authApi} from "@/lib/axiosInstance";
 
 export default function SettingPage() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -30,7 +30,7 @@ export default function SettingPage() {
     }
 
     try {
-      await axiosInstance.put(`/login/${userId}`, {
+      await authApi.put(`/login/${userId}`, {
         password: data.newPassword,
       });
 
@@ -43,7 +43,7 @@ export default function SettingPage() {
 
   return (
     <div className="flex">
-      <div className="w-full max-w-md rounded-lg shadow bg-white p-6">
+      <div className="w-full max-w-md rounded-lg shadow bg-background p-6">
         <PasswordChangeButton onClick={handleOpenModal} />
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
