@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --primary: 221 83% 53%;         /* آبی */
-  --secondary: 217 19% 27%;       /* طوسی تیره */
-  --accent: 48 96% 58%;           /* زرد */
-  --background: 210 20% 98%;      /* پس‌زمینه */
-  --text-primary: 217 19% 27%;    /* متن اصلی */
-  --text-secondary: 215 14% 46%;  /* متن فرعی */
+  --primary: 221 83% 53%; /* آبی */
+  --secondary: 217 19% 27%; /* طوسی تیره */
+  --accent: 48 96% 58%; /* زرد */
+  --background: 210 20% 98%; /* پس‌زمینه */
+  --text-primary: 217 19% 27%; /* متن اصلی */
+  --text-secondary: 215 14% 46%; /* متن فرعی */
   --gray-100: 220 13% 95%;
   --blue-500: 217 91% 60%;
   --blue-900: 224 71% 33%;
@@ -17,9 +17,6 @@
   --red-600: 0 72% 50%;
   --black: 0 0% 0%;
   --black-opacity-50: 0 0% 0% / 0.5;
-
-  
-  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,45 +38,126 @@ body {
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }

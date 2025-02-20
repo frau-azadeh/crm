@@ -5,7 +5,7 @@ import Modal from "./components/ModalPassword";
 import PasswordChangeButton from "./components/PasswordChangeButton";
 import PasswordChangeForm from "./components/PasswordChangeForm";
 import { useState } from "react";
-import {authApi} from "@/lib/axiosInstance";
+import { authApi } from "@/lib/axiosInstance";
 
 export default function SettingPage() {
   const [isModalOpen, setModalOpen] = useState(false);

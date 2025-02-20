@@ -21,4 +21,3 @@ reported vulnerability, what to expect if the vulnerability is accepted or
 declined, etc.
 
 If you discover a security vulnerability, please email us at [designweb.azadeh@example.com].
-
