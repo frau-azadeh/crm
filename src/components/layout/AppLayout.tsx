@@ -33,7 +33,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <QueryProvider>
       {isAuthPage ? (
-        <div className="h-screen flex items-center justify-center bg-gray-100">
+        <div className="h-screen flex items-center justify-center">
           {children}
         </div>
       ) : (
