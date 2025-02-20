@@ -43,7 +43,7 @@ export default function CustomerTable({
   return (
     <div className="overflow-x-auto">
       <table className="w-full bg-white shadow rounded-lg overflow-hidden">
-        <thead className="bg-gray-100">
+        <thead className="bg-[#DDD6FE]">
           <tr>
             <th className="p-3 text-right">نام</th>
             <th className="p-3 text-right">ایمیل</th>
