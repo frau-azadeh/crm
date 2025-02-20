@@ -21,7 +21,7 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="bg-white p-6 rounded-lg shadow-md w-96 space-y-4"
     >
-      <h1 className="text-2xl font-bold text-center">ورود به سیستم</h1>
+      <h1 className="text-2xl text-gray-800 font-bold text-center">ورود به سیستم</h1>
 
       <Input
         label="نام و نام خانوادگی"
