@@ -36,7 +36,7 @@ export default function SettingPage() {
 
       toast.success("رمز عبور با موفقیت تغییر کرد!");
       setModalOpen(false);
-    } catch (_error) {
+    } catch {
       toast.error("مشکلی در ارتباط با سرور پیش آمده است!");
     }
   };
