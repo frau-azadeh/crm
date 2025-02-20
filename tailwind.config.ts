@@ -9,12 +9,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#2563EB", // آبی اصلی
-        secondary: "#1E293B", // طوسی تیره
-        accent: "#FACC15", // زرد تاکیدی
-        background: "#F8FAFC", // پس‌زمینه روشن
-        textPrimary: "#1E293B", // متن اصلی
-        textSecondary: "#64748B", // متن فرعی
+        primary: 'hsl(var(--primary))',
+        secondary: 'hsl(var(--secondary))',
+        accent: 'hsl(var(--accent))',
+        background: 'hsl(var(--background))',
+        textPrimary: 'hsl(var(--text-primary))',
+        textSecondary: 'hsl(var(--text-secondary))',
+        gray100: 'hsl(var(--gray-100))',
+        blue500: 'hsl(var(--blue-500))',
+        blue900: 'hsl(var(--blue-900))',
+        white: 'hsl(var(--white))',
+        gray600: 'hsl(var(--gray-600))',
+        red600: 'hsl(var(--red-600))',
       },
     },
   },
