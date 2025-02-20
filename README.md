@@ -8,6 +8,15 @@ TypeScript
 
 Tailwind CSS
 
+### 💻 Desktop View
+A clean and modern design for desktop users:
+
+![Desktop View](https://github.com/frau-azadeh/crm/blob/master/crm.png)
+
+## 🚀 Live Demo
+
+Check out the live application here: [CRM](https://crm-orpin-pi.vercel.app/)
+
 ## 🛠️ Key Features
 
 Responsive and modern UI design
