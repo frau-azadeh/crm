@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body>
+      <body className="bg-[#F5F3FF]">
         <AppLayout>{children}</AppLayout>
       </body>
     </html>
