@@ -9,21 +9,6 @@
   --background: 210 20% 98%; /* پس‌زمینه */
   --text-primary: 217 19% 27%; /* متن اصلی */
   --text-secondary: 215 14% 46%; /* متن فرعی */
-  --gray-100: 220 13% 95%;
-  --blue-500: 217 91% 60%;
-  --blue-900: 224 71% 33%;
-  --white: 0 0% 100%;
-  --gray-600: 220 9% 27%;
-  --red-600: 0 72% 50%;
-  --black: 0 0% 0%;
-  --black-opacity-50: 0 0% 0% / 0.5;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
