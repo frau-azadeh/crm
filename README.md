@@ -9,6 +9,7 @@ TypeScript
 Tailwind CSS
 
 ### 💻 Desktop View
+
 A clean and modern design for desktop users:
 
 ![Desktop View](https://github.com/frau-azadeh/crm/blob/master/crm.png)
