@@ -17,7 +17,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
 
         {isSidebarOpen && (
-          <div className="absolute inset-0 bg-secondary text-white z-50 md:hidden p-4">
+          <div className="absolute inset-0 bg-primary text-white z-50 md:hidden p-4">
             <Sidebar isMobile />
             <button
               onClick={() => setIsSidebarOpen(false)}
