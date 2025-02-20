@@ -57,7 +57,7 @@ export default function AddCustomersForm({ onSuccess }: Props) {
       />
       <button
         type="submit"
-        className="bg-primary text-white p-2 rounded w-full"
+        className="bg-blue-500 text-white p-2 rounded w-full"
         disabled={mutation.isPending}
       >
         {mutation.isPending ? "در حال ارسال..." : "ثبت مشتری"}
