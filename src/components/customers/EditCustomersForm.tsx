@@ -77,7 +77,7 @@ export default function EditCustomerForm({
 
       <button
         type="submit"
-        className="bg-primary text-white p-2 rounded w-full"
+        className="bg-blue-500 text-white p-2 rounded w-full"
         disabled={mutation.isPending}
       >
         {mutation.isPending ? "در حال ویرایش..." : "ثبت ویرایش"}
