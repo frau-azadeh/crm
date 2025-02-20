@@ -43,7 +43,7 @@ export default function SettingPage() {
 
   return (
     <div className="flex">
-      <div className="w-full max-w-md rounded-lg shadow bg-background p-6">
+      <div className="w-full max-w-md rounded-lg shadow bg-white p-6">
         <PasswordChangeButton onClick={handleOpenModal} />
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

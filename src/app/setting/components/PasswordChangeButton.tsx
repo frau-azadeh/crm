@@ -6,7 +6,7 @@ export default function PasswordChangeButton({ onClick }: PasswordChangeProps) {
   return (
     <button
       onClick={onClick}
-      className="text-blue500 font-bold hover:text-blue950 transition"
+      className="text-blue-500 font-bold hover:text-blue-950 transition"
     >
       تغییر پسورد
     </button>
