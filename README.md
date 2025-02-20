@@ -16,7 +16,7 @@ A clean and modern design for desktop users:
 
 ## 🚀 Live Demo
 
-Check out the live application here: [CRM](https://crm-orpin-pi.vercel.app/)
+Check out the live application here: [CRM](https://crm-rho-henna.vercel.app/)
 
 ## 🛠️ Key Features
 
