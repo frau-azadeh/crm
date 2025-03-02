@@ -20,4 +20,4 @@ Tell them where to go, how often they can expect to get an update on a
 reported vulnerability, what to expect if the vulnerability is accepted or
 declined, etc.
 
-If you discover a security vulnerability, please email us at [designweb.azadeh@example.com].
+If you discover a security vulnerability, please email us at [designweb.azadeh@gmail.com].
