@@ -1,5 +1,6 @@
 import { customersApi } from "@/lib/axiosInstance";
-import { PurchaseInput, Purchase } from "@/types/purchase";
+
+import { Purchase, PurchaseInput } from "@/types/purchase";
 
 export const getCustomerPurchases = async (
   customerId: string,

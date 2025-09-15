@@ -1,7 +1,9 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+
 import { getDashboardData } from "@/services/dashboardServices";
+
 import { DashboardContent } from "@/components/dashboard/dashboardContent";
 
 export default function DashboardPage() {

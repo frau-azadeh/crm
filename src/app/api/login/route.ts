@@ -1,6 +1,7 @@
 import { authApi } from "@/lib/axiosInstance";
-import { User } from "@/types/user";
 import { NextResponse } from "next/server";
+
+import { User } from "@/types/user";
 
 export async function POST(request: Request) {
   const { fullName, password } = await request.json();

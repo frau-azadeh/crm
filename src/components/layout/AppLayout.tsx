@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { usePathname, useRouter } from "next/navigation";
-import MainLayout from "@/components/layout/MainLayout";
-import QueryProvider from "@/providers/QueryProvider";
 import { Toaster } from "react-hot-toast";
+
+import MainLayout from "@/components/layout/MainLayout";
+
+import QueryProvider from "@/providers/QueryProvider";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

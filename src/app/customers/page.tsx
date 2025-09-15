@@ -1,14 +1,18 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchCustomers, deleteCustomer } from "@/services/customerService";
 import { useState } from "react";
-import CustomerTable from "@/components/customers/CustomerTable";
-import AddCustomersForm from "@/components/customers/AddCustomersForm";
-import EditCustomerForm from "@/components/customers/EditCustomersForm";
-import CustomerPurchasesModal from "@/components/customers/CustomerPurchasesModal";
-import Modal from "@/components/customers/ModalCustomer";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { deleteCustomer, fetchCustomers } from "@/services/customerService";
 import toast from "react-hot-toast";
+
+import AddCustomersForm from "@/components/customers/AddCustomersForm";
+import CustomerPurchasesModal from "@/components/customers/CustomerPurchasesModal";
+import CustomerTable from "@/components/customers/CustomerTable";
+import EditCustomerForm from "@/components/customers/EditCustomersForm";
+import Modal from "@/components/customers/ModalCustomer";
+
 import { Customer } from "@/types/customer";
 
 export default function CustomersPage() {

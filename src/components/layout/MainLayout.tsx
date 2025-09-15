@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+
+import { X } from "lucide-react";
+
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { X } from "lucide-react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

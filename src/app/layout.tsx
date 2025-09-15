@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import "../styles/fonts.css";
+
 import AppLayout from "@/components/layout/AppLayout";
+
+import "../styles/fonts.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "CRM",
