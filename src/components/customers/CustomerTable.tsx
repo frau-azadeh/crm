@@ -1,10 +1,12 @@
-import { Customer } from "@/types/customer";
+import { useState } from "react";
+
 import {
   PencilSquareIcon,
-  TrashIcon,
   ShoppingBagIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+
+import { Customer } from "@/types/customer";
 
 interface Props {
   customers: Customer[];

@@ -1,7 +1,8 @@
 import { customersApi } from "@/lib/axiosInstance";
+
+import { Customer } from "@/types/customer";
 import { DashboardData } from "@/types/dashboard";
 import { Purchase } from "@/types/purchase";
-import { Customer } from "@/types/customer";
 
 export const getDashboardData = async (
   userId?: string,

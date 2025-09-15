@@ -1,5 +1,5 @@
-import { StatisticsCard } from "./StatisticsCard";
 import SalesChart from "./SalesChart";
+import { StatisticsCard } from "./StatisticsCard";
 
 interface DashboardContentProps {
   totalCustomers: number;

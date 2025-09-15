@@ -1,12 +1,16 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCustomerPurchases, addPurchase } from "@/services/purchaseService";
-import { PurchaseInput, Purchase } from "@/types/purchase";
 import { useState } from "react";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { addPurchase, getCustomerPurchases } from "@/services/purchaseService";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+
+import { Purchase, PurchaseInput } from "@/types/purchase";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
   customerId: string;
